@@ -62,7 +62,7 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
             System.out.println("received " + request);
             channelGroup.writeAndFlush(new TextWebSocketFrame(request));
         } else if (frame instanceof BinaryWebSocketFrame){
-            ByteBuf content = frame.content();
+            ByteBuf content = frame.content().retain();
             channelGroup.writeAndFlush(new BinaryWebSocketFrame(content));
         }
     }
